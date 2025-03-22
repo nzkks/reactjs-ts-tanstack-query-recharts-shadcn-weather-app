@@ -8,7 +8,17 @@ import WeatherDashboard from '@/pages/weather-dashboard';
 import CityPage from '@/pages/city-page';
 
 function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5, // 5 minutes
+        gcTime: 1000 * 60 * 10, // 10 minutes
+        retry: false,
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
