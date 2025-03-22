@@ -50,6 +50,24 @@ export default function WeatherDashboard() {
     );
   }
 
+  const locationName = locationQuery.data?.[0];
+
+  if (weatherQuery.error || forecastQuery.error) {
+    return (
+      <LocationAlert
+        variant="destructive"
+        title="Error"
+        description="Failed to fetch weather data. Please try again."
+        btnText="Retry"
+        btnFunction={handleRefresh}
+      />
+    );
+  }
+
+  if (!weatherQuery.data || !forecastQuery.data) {
+    return <WeatherSkeleton />;
+  }
+
   return (
     <div className="space-y-4">
       {/* Favorite cities */}
@@ -59,9 +77,9 @@ export default function WeatherDashboard() {
           variant={'outline'}
           size={'icon'}
           onClick={handleRefresh}
-          // disabled={}
+          disabled={weatherQuery.isFetching || forecastQuery.isFetching}
         >
-          <RefreshCw className="h-4 w-4" />
+          <RefreshCw className={`h-4 w-4 ${weatherQuery.isFetching ? 'animate-spin' : ''}`} />
         </Button>
       </div>
 
