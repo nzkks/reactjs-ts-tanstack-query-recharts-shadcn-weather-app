@@ -1,11 +1,14 @@
 import { BrowserRouter } from 'react-router';
 
-import { Layout } from './components/layout';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Layout } from '@/components/layout';
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout>Hello NZKKS</Layout>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Layout>Hello NZKKS</Layout>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
