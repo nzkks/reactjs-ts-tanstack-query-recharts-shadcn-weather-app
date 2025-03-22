@@ -1,18 +1,25 @@
-import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 import { useGeolocation } from '@/hooks/use-geolocation';
+import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from '@/hooks/use-weather';
 import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
 
 export default function WeatherDashboard() {
   const { coordinates, error: locationError, isLoading: locationLoading, getLocation } = useGeolocation();
 
+  const weatherQuery = useWeatherQuery(coordinates);
+  const forecastQuery = useForecastQuery(coordinates);
+  const locationQuery = useReverseGeocodeQuery(coordinates);
+
   const handleRefresh = () => {
     getLocation();
 
     if (coordinates) {
-      // reload weather data
+      weatherQuery.refetch();
+      forecastQuery.refetch();
+      locationQuery.refetch();
     }
   };
 
