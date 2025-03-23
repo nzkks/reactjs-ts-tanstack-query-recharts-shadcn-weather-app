@@ -5,6 +5,7 @@ import { useGeolocation } from '@/hooks/use-geolocation';
 import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from '@/hooks/use-weather';
 import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
+import CurrentWeather from '@/components/current-weather';
 
 export default function WeatherDashboard() {
   const { coordinates, error: locationError, isLoading: locationLoading, getLocation } = useGeolocation();
@@ -83,7 +84,16 @@ export default function WeatherDashboard() {
         </Button>
       </div>
 
-      {/* Current and Hourly weather */}
+      <div className="grid gap-6">
+        <div>
+          <CurrentWeather data={weatherQuery.data} locationName={locationName} />
+          {/* hourly temperature */}
+        </div>
+        <div>
+          {/* details */}
+          {/* forecast */}
+        </div>
+      </div>
     </div>
   );
 }
