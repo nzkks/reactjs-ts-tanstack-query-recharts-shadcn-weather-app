@@ -7,6 +7,7 @@ import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
 import CurrentWeather from '@/components/current-weather';
 import { HourlyTemperature } from '@/components/hourly-temperature';
+import { WeatherDetails } from '@/components/weather-details';
 
 export default function WeatherDashboard() {
   const { coordinates, error: locationError, isLoading: locationLoading, getLocation } = useGeolocation();
@@ -91,7 +92,7 @@ export default function WeatherDashboard() {
           <HourlyTemperature data={forecastQuery.data} />
         </div>
         <div>
-          {/* details */}
+          <WeatherDetails data={weatherQuery.data} />
           {/* forecast */}
         </div>
       </div>
