@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Search, Loader2 } from 'lucide-react';
+import { format } from 'date-fns';
+import { Search, Loader2, Clock, XCircle } from 'lucide-react';
+
+import { useLocationSearch } from '@/hooks/use-weather';
+import { useSearchHistory } from '@/hooks/use-search-history';
+
 import {
   CommandDialog,
   CommandInput,
@@ -12,17 +17,18 @@ import {
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
 
-import { useLocationSearch } from '@/hooks/use-weather';
-
 export function CitySearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
   const { data: locations, isLoading } = useLocationSearch(query);
+  const { history, addToHistory, clearHistory } = useSearchHistory();
 
   const handleSelect = (cityData: string) => {
     const [lat, lon, name, state, country] = cityData.split('|');
+
+    addToHistory.mutate({ query, lat: parseFloat(lat), lon: parseFloat(lon), name, state, country });
 
     setOpen(false);
     navigate(`/city/${name}?lat=${lat}&lon=${lon}&country=${country}&state=${state}`);
@@ -43,6 +49,37 @@ export function CitySearch() {
         <CommandInput placeholder="Search cities..." value={query} onValueChange={setQuery} />
         <CommandList>
           {query.length > 2 && !isLoading && <CommandEmpty>No cities found.</CommandEmpty>}
+
+          {/* Search History Section */}
+          {history.length > 0 && (
+            <>
+              <CommandSeparator />
+              <CommandGroup>
+                <div className="flex items-center justify-between px-2 my-2">
+                  <p className="text-xs text-muted-foreground">Recent Searches</p>
+                  <Button variant="ghost" size="sm" onClick={() => clearHistory.mutate()}>
+                    <XCircle className="h-4 w-4" />
+                    Clear
+                  </Button>
+                </div>
+                {history.map(item => (
+                  <CommandItem
+                    key={item.id}
+                    value={`${item.lat}|${item.lon}|${item.name}|${item.country}|${item.state}`}
+                    onSelect={handleSelect}
+                  >
+                    <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
+                    <span>{item.name}</span>
+                    {item.state && <span className="text-sm text-muted-foreground">, {item.state}</span>}
+                    <span className="text-sm text-muted-foreground">, {item.country}</span>
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      {format(item.searchedAt, 'MMM d, h:mm a')}
+                    </span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </>
+          )}
 
           {/* Search Results */}
           <CommandSeparator />
