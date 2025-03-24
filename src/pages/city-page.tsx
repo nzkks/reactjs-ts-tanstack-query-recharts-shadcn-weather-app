@@ -5,6 +5,7 @@ import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
 import WeatherWidgets from '@/components/weather-widgets';
 import PageTitle from '@/components/page-title';
+import FavouriteButton from '@/components/favourite-button';
 
 export default function CityPage() {
   const [searchParams] = useSearchParams();
@@ -36,7 +37,12 @@ export default function CityPage() {
 
   return (
     <div className="space-y-4">
-      <PageTitle name={params.cityName} state={state} country={country} button={<div />} />
+      <PageTitle
+        name={params.cityName}
+        state={state}
+        country={country}
+        button={<FavouriteButton data={{ ...weatherQuery.data, name: params.cityName }} />}
+      />
       <WeatherWidgets weatherQueryData={weatherQuery.data} forecastQueryData={forecastQuery.data} />
     </div>
   );
