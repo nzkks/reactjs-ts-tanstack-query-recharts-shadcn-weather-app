@@ -13,12 +13,12 @@ export default function FavouriteButton({ data }: Props) {
   const { addFavourite, removeFavourite, isFavourite } = useFavourites();
   const lat = data.coord.lat;
   const lon = data.coord.lon;
-  const isCurrentlyFavorite = isFavourite(lat, lon);
+  const isCurrentlyFavourite = isFavourite(lat, lon);
 
-  const handleToggleFavorite = () => {
-    if (isCurrentlyFavorite) {
+  const handleToggleFavourite = () => {
+    if (isCurrentlyFavourite) {
       removeFavourite.mutate(`${lat}-${lon}}`);
-      toast.error(`Removed ${data.name} from Favorites`);
+      toast.error(`Removed ${data.name} from Favourites`);
     } else {
       addFavourite.mutate({
         name: data.name,
@@ -26,18 +26,18 @@ export default function FavouriteButton({ data }: Props) {
         lon: data.coord.lon,
         country: data.sys.country,
       });
-      toast.success(`Added ${data.name} to Favorites`);
+      toast.success(`Added ${data.name} to Favourites`);
     }
   };
 
   return (
     <Button
-      variant={isCurrentlyFavorite ? 'default' : 'outline'}
+      variant={isCurrentlyFavourite ? 'default' : 'outline'}
       size="icon"
-      onClick={handleToggleFavorite}
-      className={isCurrentlyFavorite ? 'bg-yellow-500 hover:bg-yellow-600' : ''}
+      onClick={handleToggleFavourite}
+      className={isCurrentlyFavourite ? 'bg-yellow-500 hover:bg-yellow-600' : ''}
     >
-      <Star className={`h-4 w-4 ${isCurrentlyFavorite ? 'fill-current' : ''}`} />
+      <Star className={`h-4 w-4 ${isCurrentlyFavourite ? 'fill-current' : ''}`} />
     </Button>
   );
 }

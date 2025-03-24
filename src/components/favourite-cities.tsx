@@ -40,7 +40,7 @@ function FavouriteCityTablet({ id, name, lat, lon, state, country, onRemove }: F
         onClick={e => {
           e.stopPropagation();
           onRemove(id);
-          toast.error(`Removed ${name} from Favorites`);
+          toast.error(`Removed ${name} from Favourites`);
         }}
       >
         <X className="h-4 w-4" />
@@ -73,7 +73,7 @@ function FavouriteCityTablet({ id, name, lat, lon, state, country, onRemove }: F
   );
 }
 
-export default function FavoriteCities() {
+export default function FavouriteCities() {
   const { favourites, removeFavourite } = useFavourites();
 
   if (!favourites.length) {
