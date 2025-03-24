@@ -4,6 +4,7 @@ import { useForecastQuery, useWeatherQuery } from '@/hooks/use-weather';
 import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
 import WeatherWidgets from '@/components/weather-widgets';
+import PageTitle from '@/components/page-title';
 
 export default function CityPage() {
   const [searchParams] = useSearchParams();
@@ -35,15 +36,7 @@ export default function CityPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight">
-          {params.cityName},{' '}
-          <span className="text-muted-foreground">
-            {state ? `${state}, ` : ''} {country}
-          </span>
-        </h1>
-        <div className="flex gap-2">Favourite Button</div>
-      </div>
+      <PageTitle name={params.cityName} state={state} country={country} button={<div />} />
       <WeatherWidgets weatherQueryData={weatherQuery.data} forecastQueryData={forecastQuery.data} />
     </div>
   );

@@ -6,6 +6,7 @@ import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from '@/hoo
 import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
 import WeatherWidgets from '@/components/weather-widgets';
+import PageTitle from '@/components/page-title';
 
 export default function WeatherDashboard() {
   const { coordinates, error: locationError, isLoading: locationLoading, getLocation } = useGeolocation();
@@ -72,23 +73,26 @@ export default function WeatherDashboard() {
   return (
     <div className="space-y-4">
       {/* Favorite cities */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight">My Location</h1>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleRefresh}
-          disabled={weatherQuery.isFetching || forecastQuery.isFetching}
-        >
-          <RefreshCw className={`h-4 w-4 ${weatherQuery.isFetching ? 'animate-spin' : ''}`} />
-        </Button>
-      </div>
 
-      <WeatherWidgets
-        locationDetails={locationDetails}
-        weatherQueryData={weatherQuery.data}
-        forecastQueryData={forecastQuery.data}
-      />
+      {locationDetails && (
+        <PageTitle
+          name={locationDetails.name}
+          state={locationDetails.state}
+          country={locationDetails.country}
+          button={
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleRefresh}
+              disabled={weatherQuery.isFetching || forecastQuery.isFetching}
+            >
+              <RefreshCw className={`h-4 w-4 ${weatherQuery.isFetching ? 'animate-spin' : ''}`} />
+            </Button>
+          }
+        />
+      )}
+
+      <WeatherWidgets weatherQueryData={weatherQuery.data} forecastQueryData={forecastQuery.data} />
     </div>
   );
 }
