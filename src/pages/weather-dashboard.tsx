@@ -51,7 +51,7 @@ export default function WeatherDashboard() {
     );
   }
 
-  const locationName = locationQuery.data?.[0];
+  const locationDetails = locationQuery.data?.[0];
 
   if (weatherQuery.error || forecastQuery.error) {
     return (
@@ -85,7 +85,7 @@ export default function WeatherDashboard() {
       </div>
 
       <WeatherWidgets
-        locationName={locationName}
+        locationDetails={locationDetails}
         weatherQueryData={weatherQuery.data}
         forecastQueryData={forecastQuery.data}
       />
