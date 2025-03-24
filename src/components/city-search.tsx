@@ -29,7 +29,7 @@ export function CitySearch() {
   const { history, addToHistory, clearHistory } = useSearchHistory();
 
   const handleSelect = (cityData: string) => {
-    const [lat, lon, name, state, country] = cityData.split('|');
+    const [lat, lon, name, country, state] = cityData.split('|');
 
     addToHistory.mutate({ query, lat: parseFloat(lat), lon: parseFloat(lon), name, state, country });
 

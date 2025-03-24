@@ -11,7 +11,7 @@ export default function PageTitle({ name, state, country, button }: Props) {
       <h1 className="text-xl font-bold tracking-tight">
         {name},{' '}
         <span className="text-muted-foreground">
-          {state ? `${state}, ` : ''} {country}
+          {state !== 'undefined' ? `${state}, ` : ''} {country}
         </span>
       </h1>
       <div className="flex gap-2">{button}</div>
