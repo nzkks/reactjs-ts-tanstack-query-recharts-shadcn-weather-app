@@ -35,7 +35,7 @@ export default function CityPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <PageTitle name={params.cityName} state={state} country={country} button={<div />} />
       <WeatherWidgets weatherQueryData={weatherQuery.data} forecastQueryData={forecastQuery.data} />
     </div>

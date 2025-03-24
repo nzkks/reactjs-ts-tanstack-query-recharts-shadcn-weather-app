@@ -11,13 +11,13 @@ type Props = {
 
 export default function WeatherWidgets({ weatherQueryData, forecastQueryData }: Props) {
   return (
-    <div className="grid gap-6">
-      <div className="flex flex-col lg:flex-row gap-4">
+    <div className="grid gap-4">
+      <div className="grid gap-4 md:grid-cols-2 items-start">
         <CurrentWeather data={weatherQueryData} />
         <HourlyTemperature data={forecastQueryData} />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 items-start">
+      <div className="grid gap-4 md:grid-cols-2 items-start">
         <WeatherDetails data={weatherQueryData} />
         <WeatherForecast data={forecastQueryData} />
       </div>
