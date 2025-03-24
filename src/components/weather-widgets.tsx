@@ -1,20 +1,19 @@
-import { ForecastData, GeocodingResponse, WeatherData } from '@/api/types';
+import { ForecastData, WeatherData } from '@/api/types';
 import CurrentWeather from './current-weather';
 import { HourlyTemperature } from './hourly-temperature';
 import { WeatherDetails } from './weather-details';
 import { WeatherForecast } from './weather-forecast';
 
 type Props = {
-  locationDetails?: GeocodingResponse;
   weatherQueryData: WeatherData;
   forecastQueryData: ForecastData;
 };
 
-export default function WeatherWidgets({ locationDetails, weatherQueryData, forecastQueryData }: Props) {
+export default function WeatherWidgets({ weatherQueryData, forecastQueryData }: Props) {
   return (
     <div className="grid gap-6">
       <div className="flex flex-col lg:flex-row gap-4">
-        <CurrentWeather data={weatherQueryData} locationDetails={locationDetails} />
+        <CurrentWeather data={weatherQueryData} />
         <HourlyTemperature data={forecastQueryData} />
       </div>
 

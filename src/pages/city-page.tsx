@@ -13,13 +13,6 @@ export default function CityPage() {
   const state = searchParams.get('state') || '';
   const country = searchParams.get('country') || '';
 
-  const locationDetails = {
-    name: params.cityName || '',
-    state,
-    country,
-    lat,
-    lon,
-  };
   const coordinates = { lat, lon };
 
   const weatherQuery = useWeatherQuery(coordinates);
@@ -51,11 +44,7 @@ export default function CityPage() {
         </h1>
         <div className="flex gap-2">Favourite Button</div>
       </div>
-      <WeatherWidgets
-        locationDetails={locationDetails}
-        weatherQueryData={weatherQuery.data}
-        forecastQueryData={forecastQuery.data}
-      />
+      <WeatherWidgets weatherQueryData={weatherQuery.data} forecastQueryData={forecastQuery.data} />
     </div>
   );
 }
