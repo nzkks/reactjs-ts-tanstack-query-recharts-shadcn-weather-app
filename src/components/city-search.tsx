@@ -22,12 +22,10 @@ export function CitySearch() {
   const { data: locations, isLoading } = useLocationSearch(query);
 
   const handleSelect = (cityData: string) => {
-    const [lat, lon, name, country] = cityData.split('|');
-
-    console.log({ country });
+    const [lat, lon, name, state, country] = cityData.split('|');
 
     setOpen(false);
-    navigate(`/city/${name}?lat=${lat}&lon=${lon}`);
+    navigate(`/city/${name}?lat=${lat}&lon=${lon}&country=${country}&state=${state}`);
   };
 
   return (
@@ -59,7 +57,7 @@ export function CitySearch() {
               {locations?.map(location => (
                 <CommandItem
                   key={`${location.lat}-${location.lon}`}
-                  value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
+                  value={`${location.lat}|${location.lon}|${location.name}|${location.country}|${location.state}`}
                   onSelect={handleSelect}
                 >
                   <Search className="mr-2 h-4 w-4" />

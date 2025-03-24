@@ -1,8 +1,9 @@
+import { useParams, useSearchParams } from 'react-router';
+
+import { useForecastQuery, useWeatherQuery } from '@/hooks/use-weather';
 import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
 import WeatherWidgets from '@/components/weather-widgets';
-import { useForecastQuery, useWeatherQuery } from '@/hooks/use-weather';
-import { useParams, useSearchParams } from 'react-router';
 
 export default function CityPage() {
   const [searchParams] = useSearchParams();
@@ -10,6 +11,13 @@ export default function CityPage() {
   const lat = parseFloat(searchParams.get('lat') || '0');
   const lon = parseFloat(searchParams.get('lon') || '0');
 
+  const locationDetails = {
+    name: params.cityName || '',
+    state: searchParams.get('state') || '',
+    country: searchParams.get('country') || '',
+    lat,
+    lon,
+  };
   const coordinates = { lat, lon };
 
   const weatherQuery = useWeatherQuery(coordinates);
@@ -30,5 +38,11 @@ export default function CityPage() {
     return <WeatherSkeleton />;
   }
 
-  return <WeatherWidgets weatherQueryData={weatherQuery.data} forecastQueryData={forecastQuery.data} />;
+  return (
+    <WeatherWidgets
+      locationDetails={locationDetails}
+      weatherQueryData={weatherQuery.data}
+      forecastQueryData={forecastQuery.data}
+    />
+  );
 }
