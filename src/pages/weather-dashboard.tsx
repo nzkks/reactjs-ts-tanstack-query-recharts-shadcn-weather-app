@@ -7,6 +7,7 @@ import WeatherSkeleton from '@/components/loading-skeleton';
 import LocationAlert from '@/components/location-alert';
 import WeatherWidgets from '@/components/weather-widgets';
 import PageTitle from '@/components/page-title';
+import FavouriteCities from '@/components/favourite-cities';
 
 export default function WeatherDashboard() {
   const { coordinates, error: locationError, isLoading: locationLoading, getLocation } = useGeolocation();
@@ -72,7 +73,7 @@ export default function WeatherDashboard() {
 
   return (
     <div className="space-y-4">
-      {/* Favorite cities */}
+      <FavouriteCities />
 
       {locationDetails && (
         <PageTitle
