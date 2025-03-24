@@ -5,7 +5,7 @@ import { WeatherDetails } from './weather-details';
 import { WeatherForecast } from './weather-forecast';
 
 type Props = {
-  locationName: GeocodingResponse | undefined;
+  locationName?: GeocodingResponse;
   weatherQueryData: WeatherData;
   forecastQueryData: ForecastData;
 };

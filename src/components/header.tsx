@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 
 import { ModeToggle } from '@/components/mode-toggle';
+import { CitySearch } from '@/components/city-search';
 
 export function Header() {
   return (
@@ -9,7 +10,7 @@ export function Header() {
         <Link to={'/'}>Logo</Link>
 
         <div className="flex gap-4">
-          Search | <ModeToggle />
+          <CitySearch /> <ModeToggle />
         </div>
       </div>
     </header>
