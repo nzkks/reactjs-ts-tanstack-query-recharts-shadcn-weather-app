@@ -58,3 +58,13 @@ export interface ForecastData {
     sunset: number;
   };
 }
+
+export interface FavouriteCity {
+  id: string;
+  name: string;
+  lat: number;
+  lon: number;
+  country: string;
+  state?: string;
+  addedAt: number;
+}

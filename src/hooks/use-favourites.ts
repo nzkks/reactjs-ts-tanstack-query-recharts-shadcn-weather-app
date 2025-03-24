@@ -1,16 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useLocalStorage } from './use-local-storage';
-
-export interface FavouriteCity {
-  id: string;
-  name: string;
-  lat: number;
-  lon: number;
-  country: string;
-  state?: string;
-  addedAt: number;
-}
+import { FavouriteCity } from '@/api/types';
 
 export function useFavourites() {
   const [favourites, setFavourites] = useLocalStorage<FavouriteCity[]>('favourites', []);
